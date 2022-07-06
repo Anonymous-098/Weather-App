@@ -1,0 +1,21 @@
+.form{
+    background-color: lightgray;
+    margin: 0 auto;
+    padding: 0.4rem 1rem;
+}
+
+.input{
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    width: 20rem;
+    border: none;
+    font: inherit;
+    outline: none;
+}
+
+.icon{
+    padding: 0.3rem;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}

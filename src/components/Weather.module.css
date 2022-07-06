@@ -1,0 +1,48 @@
+.weatherContainer{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.weather{
+    background: black;
+    width: 60%;
+    height: 40vh;
+    border-radius: 25px;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+}
+
+.content{
+    color: white;
+}
+
+.gridBox{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 90%;
+    height: 38vh;
+    /* margin-top: 0.5rem; */
+    margin: 0.5rem auto;
+}
+
+.item1{
+    background-color: forestgreen;
+    width: 100%;
+    text-align: center;
+}
+
+.item2{
+    background-color: aquamarine;
+    width: 100%;
+}
+.item3{
+    background-color: blueviolet;
+    width: 100%;
+}
+
+.item4{
+    background-color: coral;
+    width: 100%;
+}
