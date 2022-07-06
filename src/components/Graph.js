@@ -12,10 +12,9 @@ const Graph = (props) => {
   var array = [];
 
   const graph = useSelector((state) => state.graph);
-  const dispatch = useDispatch();
-  //   console.log(graph);
+//   console.log(graph);
 
-  if (graph.labels.length > 5) {
+  if (graph.labels.length > 4) {
     firstValue = graph.labels[0];
 
     if (firstValue === "00:00") {
@@ -50,17 +49,31 @@ const Graph = (props) => {
       gfg[i] = new Array(array[x]);
       x++;
     }
+    var gfg1 = new Array(6);
+    var x = 0;
+
+    for (var i = 0; i < gfg1.length; i++) {
+      gfg1[i] = new Array(array[x]);
+      x++;
+    }
 
     var k = 0;
     var temp = 0;
     for (var i = 0; i < 6; i++) {
       for (var j = 0; j < array[k]; j++) {
         gfg[i][j] = graph.datasets[0].data[temp];
+        gfg1[i][j] = graph.labels[temp];
         temp++;
       }
       k++;
     }
   }
+
+  const newObj = {
+    tempLabels: gfg1,
+    tempData : gfg
+  }
+//   console.log(newObj);
 
   return (
     <div>

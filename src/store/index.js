@@ -1,11 +1,11 @@
 import { createStore } from "redux";
 
 const data = {
-  labels: ["03:00","06:00","09:00"],
+  labels: [],
   datasets: [
     {
       label: "TEMPERATURE",
-      data: [33, 42, 39, 41, 44],
+      data: [],
       fill: false,
       borderColor: "#742774"
     }
@@ -21,7 +21,7 @@ const initialState = {
   icon:"http://openweathermap.org/img/wn/10d@2x.png",
   humidity:0,
   wind:0,
-  graph:data
+  graph:data,
 };
 
 const reducerFunction = (state, action) => {
