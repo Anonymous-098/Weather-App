@@ -2,43 +2,49 @@ import { createStore } from "redux";
 
 const initialState = {
   weather: "sunny",
-  weatherOnHours: null,
   isLoading: true,
   error: false,
-  days: null,
-  currentDayWeather: null,
-  temperature:2,
+  temperature: 0,
+  location: "Delhi",
+  icon:"http://openweathermap.org/img/wn/10d@2x.png",
+  humidity:0,
+  wind:0,
+  graph:null
 };
 
 const reducerFunction = (state, action) => {
+  state = initialState;
+  if (action.type === "SET_WEATHER") {
+    return {
+      ...state,
+      weather: action.weather,
+      location: action.location,
+      temperature: action.temperature,
+      icon:`https://openweathermap.org/img/wn/${action.icon}@2x.png`,
+      humidity:action.humidity,
+      wind:action.wind
+    };
+  }
+  if (action.type === "SET_LOADING") {
+    return {
+      ...state,
+      isLoading: action.isLoading,
+    };
+  }
+  if (action.type === "SET_ERROR") {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }
+  if(action.type === "SET_GRAPH"){
+    return {
+      ...state,
+      graph:action.graph
+    }
+  }
 
-    state = initialState;
-    if(action.type==='SET_WEATHER'){
-        return {
-            ...state,
-            weather:action.weather,
-        }
-    }
-    if(action.type==='SET_TEMP'){
-        return {
-            ...state,
-            temperature:action.temperature
-        }
-    }
-    if(action.type==='SET_LOADING'){
-        return{
-            ...state,
-            isLoading:action.isLoading
-        }
-    }
-    if(action.type==='SET_ERROR'){
-        return{
-            ...state,
-            error:action.error
-        }
-    }
-
-    return state;
+  return state;
 };
 
 const store = createStore(reducerFunction);

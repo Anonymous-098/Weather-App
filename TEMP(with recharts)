@@ -1,0 +1,75 @@
+import classes from "./Graph.module.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
+import {
+  LineChart,
+  Line,
+  Legend,
+  Tooltip,
+  YAxis,
+  XAxis,
+  CartesianGrid,
+} from "recharts";
+import { useEffect, useState } from "react";
+
+const Graph = (props) => {
+  // api.openweathermap.org/data/2.5/forecast?q=mysore&APPID=2a95407562161c907213d3c692c06e9a&mode=json&units=metric
+  let data;
+
+  const city = useSelector((state) => state.location);
+
+  const [graphData, setGraphData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const graphDataURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=3&APPID=2a95407562161c907213d3c692c06e9a&mode=json&units=metric`;
+
+  const callFunc = async () => {
+    const response = await axios.get(graphDataURL);
+    const list = response.data.list;
+    const data = list.map((listItem) => {
+      return {
+        name: listItem.dt_txt.slice(11, 16),
+        temp: listItem.main.temp,
+      };
+    });
+    console.log(list);
+    setGraphData(data);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    callFunc();
+    setIsLoading(false);
+  }, [city]);
+
+  //   console.log(graphData);
+
+  return (
+    <div>
+      {isLoading && <p>Loading....</p>}
+      {!isLoading && (
+        <LineChart
+          width={770}
+          height={350}
+          data={graphData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis
+            domain={['auto','auto']}
+            type="number"
+            // allowDecimals={false}
+            allowDecimals={false}
+          />
+          <Tooltip />
+          {/* <Legend /> */}
+          <Line type="monotone" dataKey="temp" stroke="#82ca9d" />
+        </LineChart>
+      )}
+    </div>
+  );
+};
+
+export default Graph;

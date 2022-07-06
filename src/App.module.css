@@ -5,3 +5,13 @@
     text-align: center;
     margin-top: 3rem;
 }
+
+.graphContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.graph{
+    margin-top: 5rem;
+    width: 50%;
+}

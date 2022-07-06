@@ -17,18 +17,31 @@ const Search = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    // dispatch({ type: "SET_LOADING", isLoading: true });
+    dispatch({ type: "SET_LOADING", isLoading: true });
 
     const func = async () => {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=${API_KEY}&mode=json&units=metric`
-      );
-      data = await response.data;
-      console.log(data);
-      dispatch({ type: "SET_WEATHER", weather: data.weather[0].description });
-      dispatch({ type: "SET_TEMP", temperature: data.main.temp });
-      //   dispatch({ type: "SET_LOADING", isLoading: false });
+      try {        
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=${API_KEY}&mode=json&units=metric`
+        );
+        data = await response.data;
+        dispatch({
+            type: "SET_WEATHER",
+            weather: data.weather[0].description,
+            location: data.name,
+            temperature: data.main.temp,
+            icon:data.weather[0].icon,
+            humidity:data.main.humidity,
+            wind:data.wind.speed
+          });
+      } catch (err) {
+        console.log(err.message);
+        dispatch({type:'SET_ERROR',error:err.message});
+      }
     };
+
+    dispatch({ type: "SET_LOADING", isLoading: false });
+
     if (value !== undefined) {
       func();
     }
