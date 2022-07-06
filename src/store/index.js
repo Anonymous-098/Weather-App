@@ -1,5 +1,18 @@
 import { createStore } from "redux";
 
+const data = {
+  labels: ["03:00","06:00","09:00"],
+  datasets: [
+    {
+      label: "TEMPERATURE",
+      data: [33, 42, 39, 41, 44],
+      fill: true,
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)"
+    }
+  ]
+};
+
 const initialState = {
   weather: "sunny",
   isLoading: true,
@@ -9,7 +22,7 @@ const initialState = {
   icon:"http://openweathermap.org/img/wn/10d@2x.png",
   humidity:0,
   wind:0,
-  graph:null
+  graph:data
 };
 
 const reducerFunction = (state, action) => {
@@ -22,7 +35,8 @@ const reducerFunction = (state, action) => {
       temperature: action.temperature,
       icon:`https://openweathermap.org/img/wn/${action.icon}@2x.png`,
       humidity:action.humidity,
-      wind:action.wind
+      wind:action.wind,
+      graph:action.graph
     };
   }
   if (action.type === "SET_LOADING") {

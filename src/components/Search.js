@@ -20,23 +20,51 @@ const Search = (props) => {
     dispatch({ type: "SET_LOADING", isLoading: true });
 
     const func = async () => {
-      try {        
+      try {
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=${API_KEY}&mode=json&units=metric`
         );
         data = await response.data;
+
+        const city = data.name;
+
+        const response1 = await axios.get(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=2a95407562161c907213d3c692c06e9a&mode=json&units=metric`
+        );
+        const list = await response1.data.list;
+        console.log(list);
+        const graphLabels = list.map((listItem) => {
+          return listItem.dt_txt.slice(11, 16);
+        });
+        const graphData = list.map((listItem) => {
+          return listItem.main.temp;
+        });
+        const data1 = {
+          labels: graphLabels,
+          datasets: [
+            {
+              label: "TEMPERATURE",
+              data: graphData,
+              fill: false,
+              borderColor: "#742774",
+            },
+          ],
+        };
+        console.log(data1);
+
         dispatch({
-            type: "SET_WEATHER",
-            weather: data.weather[0].description,
-            location: data.name,
-            temperature: data.main.temp,
-            icon:data.weather[0].icon,
-            humidity:data.main.humidity,
-            wind:data.wind.speed
-          });
+          type: "SET_WEATHER",
+          weather: data.weather[0].description,
+          location: data.name,
+          temperature: data.main.temp,
+          icon: data.weather[0].icon,
+          humidity: data.main.humidity,
+          wind: data.wind.speed,
+          graph:data1
+        });
       } catch (err) {
         console.log(err.message);
-        dispatch({type:'SET_ERROR',error:err.message});
+        dispatch({ type: "SET_ERROR", error: err.message });
       }
     };
 
