@@ -32,7 +32,6 @@ const Search = (props) => {
           `https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=2a95407562161c907213d3c692c06e9a&mode=json&units=metric`
         );
         const list = await response1.data.list;
-        console.log(list);
         const graphLabels = list.map((listItem) => {
           return listItem.dt_txt.slice(11, 16);
         });
@@ -46,11 +45,10 @@ const Search = (props) => {
               label: "TEMPERATURE",
               data: graphData,
               fill: false,
-              borderColor: "#742774",
+              borderColor: "#742774"
             },
           ],
         };
-        console.log(data1);
 
         dispatch({
           type: "SET_WEATHER",
@@ -60,7 +58,7 @@ const Search = (props) => {
           icon: data.weather[0].icon,
           humidity: data.main.humidity,
           wind: data.wind.speed,
-          graph:data1
+          graph: data1,
         });
       } catch (err) {
         console.log(err.message);

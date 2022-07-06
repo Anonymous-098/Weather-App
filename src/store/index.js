@@ -6,9 +6,8 @@ const data = {
     {
       label: "TEMPERATURE",
       data: [33, 42, 39, 41, 44],
-      fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)"
+      fill: false,
+      borderColor: "#742774"
     }
   ]
 };
